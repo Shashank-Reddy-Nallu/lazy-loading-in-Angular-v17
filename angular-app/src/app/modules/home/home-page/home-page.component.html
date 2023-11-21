@@ -1,0 +1,94 @@
+<div class="container">
+    <h1>Hey, I am Home Page</h1>
+</div>
+
+<div class="container main">
+    <form [formGroup]="dataForm" (ngSubmit)="addEmp()">
+        <label for="empNumber">Add Employee Id</label>
+        <br>
+        <input type="text" id="empNumber" class="mt-1" formControlName="empNumber">
+        <br>
+        @if (isEmpNumberSubmitted && dataForm.get('empNumber')?.errors?.['required']) {
+        <div class="text-danger error-msg">Required</div>
+        } @else if (dataForm.get('empNumber')?.errors?.['pattern']) {
+        <div class="text-danger error-msg">Please enter numbers only</div>
+        }
+
+        <label for="age">Age</label>
+        <br>
+        <input type="number" id="age" class="mt-1" formControlName="age">
+        <br>
+        @if (isEmpNumberSubmitted && dataForm.get('age')?.errors?.['required']) {
+        <div class="text-danger error-msg">Required</div>
+        } @else if (dataForm.get('age')?.errors?.['pattern']) {
+        <div class="text-danger error-msg">Please enter numbers only</div>
+        }
+        <button type="submit" class="btn mt-1">Add</button>
+    </form>
+
+    <div class="values-container mt-1">
+        <div class="all-employees">
+            <h3>All Employees</h3>
+            @for (employee of employees(); track $index) {
+            <div class="d-flex mt-1">
+                <div>ID: {{employee.id}} -</div>
+                <div>Age: {{employee.age}}</div>
+            </div>
+            }
+            @empty {
+            <div class="mt-1">No Employees found, please add employees</div>
+            }
+        </div>
+        <div class="young-employees mt-1">
+            <h3>Employees, whose age is less than 30</h3>
+            @for (employee of youngEmp(); track $index) {
+            <div class="d-flex mt-1">
+                <div>ID: {{employee.id}} -</div>
+                <div>Age: {{employee.age}}</div>
+            </div>
+            }
+            @empty {
+            <div class="mt-1">No Employees found</div>
+            }
+        </div>
+        <div class="adult-employees mt-1">
+            <h3>Employees, whose age is in b/w 30 & 50</h3>
+            @for (employee of adultEmp(); track $index) {
+            <div class="d-flex mt-1">
+                <div>ID: {{employee.id}} -</div>
+                <div>Age: {{employee.age}}</div>
+            </div>
+            }
+            @empty {
+            <div class="mt-1">No Employees found</div>
+            }
+        </div>
+        <div class="senior-employees mt-1">
+            <h3>Employees, whose age is greater than 50</h3>
+            @for (employee of seniorEmp(); track $index) {
+            <div class="d-flex mt-1">
+                <div>ID: {{employee.id}} -</div>
+                <div>Age: {{employee.age}}</div>
+            </div>
+            }
+            @empty {
+            <div class="mt-1">No Employees found</div>
+            }
+        </div>
+    </div>
+
+    <!-- Example for deferrable views -->
+    @defer (on viewport(counterSection)) {
+    <div class="counter-section mt-1 d-flex">
+        <h3>Count of Employees: </h3>
+        <div>{{empCount()}}</div>
+    </div>
+    }
+    @loading(minimum 2s) {
+    <h2 class="mt-2">Deferred Block is Loading...</h2>
+    }
+    @error {
+    <div class="error-message mt-2">Something went wrong...</div>
+    }
+</div>
+<div #counterSection></div>

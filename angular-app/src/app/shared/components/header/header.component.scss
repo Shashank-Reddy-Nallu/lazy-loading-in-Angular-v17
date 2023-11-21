@@ -1,0 +1,13 @@
+ul {
+    list-style: none;
+
+    li {
+        margin: 0 1rem;
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            color: black;
+        }
+    }
+}
