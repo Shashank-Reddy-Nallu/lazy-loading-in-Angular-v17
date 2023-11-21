@@ -3,3 +3,4 @@ This Repo includes the following -
 - How lazy loading is performed in Angular v17.
 - Examples for Declarative control flow (In HomeComponent).
 - Examples for Deferrable views (In HomeComponent).
+- Example usage of Signals (In HomeComponent).
